@@ -1,2 +1,2 @@
-let nameToPrint = promt("what's your name?");
-print ("hello + nameToPrint");
+let nameToPrint = prompt("what is your name?");
+print("Hello, " + nameToPrint);
