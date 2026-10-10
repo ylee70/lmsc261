@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pink Bear</title>
+</head>
+<body>
+
+<canvas id="canvas" width="600" height="600"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const w = canvas.width, h = canvas.height;
+
+const dpr = window.devicePixelRatio || 1;
+canvas.width *= dpr, canvas.height *= dpr;
+ctx.scale(dpr, dpr);
+
+
+ctx.fillStyle = "#FFF4F8";
+ctx.fillRect(0, 0, w, h);
+
+
+const cx = w / 2, cy = h / 2;
+
+// draw left ear
+ctx.beginPath();
+ctx.arc(cx - 100, 
+        cy - 110, 
+        55, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "pink";
+ctx.fill();
+
+// draw right ear
+ctx.beginPath();
+ctx.arc(cx + 100, 
+        cy - 110, 
+        55, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "pink";
+ctx.fill();
+
+// draw face
+ctx.beginPath();
+ctx.arc(cx, 
+        cy, 
+        160, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "pink";
+ctx.fill();
+
+// draw left inner ear
+ctx.beginPath();
+ctx.arc(cx - 110, 
+        cy - 125, 
+        25, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "#FF8FA3";
+ctx.fill();
+
+// draw right inner ear
+ctx.beginPath();
+ctx.arc(cx + 110, 
+        cy - 125, 
+        25, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "#FF8FA3";
+ctx.fill();
+
+// draw left eye
+ctx.beginPath();
+ctx.arc(cx - 60, 
+        cy - 20, 
+        12, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "black";
+ctx.fill();
+
+// draw right eye
+ctx.beginPath();
+ctx.arc(cx + 60, 
+        cy - 20, 
+        12, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "black";
+ctx.fill();
+
+// draw nose area
+ctx.beginPath();
+ctx.arc(cx, 
+        cy + 55, 
+        55, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "#FFE5EC";
+ctx.fill();
+
+// draw nose
+ctx.beginPath();
+ctx.arc(cx, 
+        cy + 40, 
+        14, 
+        0, 
+        Math.PI * 2, 
+        false);
+ctx.fillStyle = "black";
+ctx.fill();
+
+// draw mouth
+ctx.beginPath();
+ctx.moveTo(cx, cy + 45);
+ctx.lineTo(cx, cy + 80);
+ctx.strokeStyle = "black";
+ctx.lineWidth = 4;
+ctx.stroke();
+
+</script>
+</body>
+</html>
