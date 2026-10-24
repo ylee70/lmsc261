@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pink Bear - Draft 2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.11/p5.min.js"></script>
+</head>
+
+<body>
+
+<script>
+
+// Variable for eye color
+let rainbow = false;
+
+function setup() {
+    createCanvas(600, 600);
+    pixelDensity(window.devicePixelRatio || 1);
+}
+
+// Draw the bear
+function drawBear() {
+
+    let cx = width / 2;
+    let cy = height / 2;
+
+    // Background
+    background("#FFF4F8");
+    noStroke();
+
+    // draw left ear
+    fill("pink");
+    circle(cx - 100, cy - 110, 110);
+
+    // draw right ear
+    fill("pink");
+    circle(cx + 100, cy - 110, 110);
+
+    // draw face
+    fill("pink");
+    circle(cx, cy, 320);
+
+    // draw left inner ear
+    fill("#FF8FA3");
+    circle(cx - 110, cy - 125, 50);
+
+    // draw right inner ear
+    fill("#FF8FA3");
+    circle(cx + 110, cy - 125, 50);
+
+    // Eyes
+    if (rainbow == false) {
+
+        // draw left eye
+        fill("black");
+        circle(cx - 60, cy - 20, 24);
+
+        // draw right eye
+        fill("black");
+        circle(cx + 60, cy - 20, 24);
+
+    } else {
+
+        drawRainbowEye(cx - 60, cy - 20);
+        drawRainbowEye(cx + 60, cy - 20);
+    }
+
+    // Red cheeks
+    if (rainbow == true) {
+
+        fill("#FF7896");
+        circle(cx - 105, cy + 45, 44);
+        circle(cx + 105, cy + 45, 44);
+    }
+
+    // draw nose area
+    fill("#FFE5EC");
+    circle(cx, cy + 55, 130);
+
+    // draw nose
+    fill("black");
+    circle(cx, cy + 30, 28);
+
+    // draw mouth
+    if (rainbow == false) {
+
+        // Big open mouth
+        fill("black");
+        circle(cx, cy + 100, 80);
+
+    } else {
+
+        // Small round mouth
+        fill("black");
+        circle(cx, cy + 100, 16);
+    }
+}
+
+// Rainbow eyes with a loop
+function drawRainbowEye(x, y) {
+
+    let colors = ["#FFF4B8", "#FFE66D", "#FFD59A", "#FFFDF0"];
+
+    for (let i = 0; i < 4; i++) {
+
+        fill(colors[i]);
+        circle(x, y, 24 - i * 6);
+    }
+
+    // Little white sparkle
+    fill("white");
+    circle(x - 4, y - 4, 4);
+}
+
+// Draw once when the page opens
+function draw() {
+    drawBear();
+    noLoop();
+}
+
+// Click to change the eyes and mouth
+function mousePressed() {
+
+    if (
+        mouseX >= 0 &&
+        mouseX <= width &&
+        mouseY >= 0 &&
+        mouseY <= height
+    ) {
+
+        if (rainbow == false) {
+            rainbow = true;
+        } else {
+            rainbow = false;
+        }
+
+        redraw();
+    }
+}
+
+</script>
+
+</body>
+</html>

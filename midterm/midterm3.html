@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pink Bear - Draft 3</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.11/p5.min.js"></script>
+</head>
+
+<body>
+
+<h2>Feed the Bear an Apple! 🍎</h2>
+
+<script>
+
+let appleX = 120;
+let appleY = 480;
+
+let isDragging = false;
+let appleEaten = false;
+let rainbow = false;
+
+let bounce = 0;
+let bounceSpeed = 2;
+let timer = 0;
+
+function setup() {
+
+    // Keep the original large display size
+    let dpr = window.devicePixelRatio || 1;
+
+    let canvas = createCanvas(600, 600);
+
+    canvas.style("width", 600 * dpr + "px");
+    canvas.style("height", 600 * dpr + "px");
+
+    pixelDensity(dpr);
+}
+
+function draw() {
+
+    background("#FFF4F8");
+
+    // Bear animation
+    if (appleEaten == true) {
+
+        bounce += bounceSpeed;
+
+        if (bounce >= 10 || bounce <= -10) {
+            bounceSpeed *= -1;
+        }
+
+        timer++;
+
+        if (timer >= 60) {
+
+            appleEaten = false;
+            rainbow = false;
+
+            appleX = 120;
+            appleY = 480;
+
+            bounce = 0;
+            timer = 0;
+        }
+    }
+
+    drawBear();
+
+    if (appleEaten == false) {
+        drawApple();
+    }
+}
+
+function drawBear() {
+
+    let cx = width / 2;
+    let cy = height / 2 + bounce;
+
+    noStroke();
+
+    // Ears
+    fill("pink");
+    circle(cx - 100, cy - 110, 110);
+    circle(cx + 100, cy - 110, 110);
+
+    // Face
+    fill("pink");
+    circle(cx, cy, 320);
+
+    // Inner ears
+    fill("#FF8FA3");
+    circle(cx - 110, cy - 125, 50);
+    circle(cx + 110, cy - 125, 50);
+
+    // Eyes
+    if (rainbow == false) {
+
+        fill("black");
+        circle(cx - 60, cy - 20, 24);
+        circle(cx + 60, cy - 20, 24);
+
+    } else {
+
+        drawRainbowEye(cx - 60, cy - 20);
+        drawRainbowEye(cx + 60, cy - 20);
+    }
+
+    // Cheeks
+    if (rainbow == true) {
+
+        fill("#FF7896");
+        circle(cx - 105, cy + 45, 44);
+        circle(cx + 105, cy + 45, 44);
+    }
+
+    // Nose area
+    fill("#FFE5EC");
+    circle(cx, cy + 55, 130);
+
+    // Nose
+    fill("black");
+    circle(cx, cy + 30, 28);
+
+    // Mouth
+    fill("black");
+
+    if (rainbow == false) {
+        circle(cx, cy + 100, 80);
+    } else {
+        circle(cx, cy + 100, 16);
+    }
+}
+
+function drawRainbowEye(x, y) {
+
+    let colors = [
+        "#FFF4B8",
+        "#FFE66D",
+        "#FFD59A",
+        "#FFFDF0"
+    ];
+
+    for (let i = 0; i < 4; i++) {
+
+        fill(colors[i]);
+        circle(x, y, 24 - i * 6);
+    }
+
+    fill("white");
+    circle(x - 4, y - 4, 4);
+}
+
+function drawApple() {
+
+    noStroke();
+
+    fill("red");
+    circle(appleX, appleY, 70);
+
+    fill("green");
+    circle(appleX + 12, appleY - 35, 20);
+}
+
+// Pick up the apple
+function mousePressed() {
+
+    if (
+        appleEaten == false &&
+        mouseX > appleX - 35 &&
+        mouseX < appleX + 35 &&
+        mouseY > appleY - 35 &&
+        mouseY < appleY + 35
+    ) {
+        isDragging = true;
+    }
+}
+
+// Drag the apple
+function mouseDragged() {
+
+    if (isDragging == true) {
+
+        appleX = mouseX;
+        appleY = mouseY;
+    }
+
+    return false;
+}
+
+// Drop the apple
+function mouseReleased() {
+
+    if (isDragging == true) {
+
+        isDragging = false;
+
+        let cx = width / 2;
+        let cy = height / 2;
+
+        if (
+            appleX > cx - 40 &&
+            appleX < cx + 40 &&
+            appleY > cy + 60 &&
+            appleY < cy + 140
+        ) {
+
+            appleEaten = true;
+            rainbow = true;
+
+            timer = 0;
+            bounce = 0;
+            bounceSpeed = 2;
+        }
+    }
+}
+
+</script>
+
+</body>
+</html>
+
